@@ -10,7 +10,7 @@ from dataset.validation.segment_me_if_you_can import SegmentMeIfYouCan
 from engine.engine import Engine
 from model.network import Network
 from utils.img_utils import Compose, Normalize, ToTensor
-from utils.wandb_upload import *
+#from utils.wandb_upload import *
 from utils.logger import *
 from engine.evaluator import SlidingEval
 from valid import valid_anomaly, valid_epoch, final_test_inlier
@@ -54,9 +54,10 @@ def main(gpu, ngpus_per_node, config, args):
     segment_me_obstacle = SegmentMeIfYouCan(split='road_obstacle', root=config.segment_me_root_path,
                                             transform=transform)
     road_anomaly = RoadAnomaly(root=config.road_anomaly_root_path, transform=transform)
-    # lost_and_found = LostAndFound(root=config.lost_and_found_root_path, transform=transform)
+    #lost_and_found = LostAndFound(root=config.lost_and_found_root_path, transform=transform)
     model = get_anomaly_detector(config.rpl_corocl_weight_path)
-    vis_tool = Tensorboard(config=config)
+    #vis_tool = Tensorboard(config=config)
+    vis_tool = None
 
     if engine.distributed:
         torch.cuda.set_device(engine.local_rank)
@@ -75,6 +76,8 @@ def main(gpu, ngpus_per_node, config, args):
       the performance reported in the GitHub. )
     # 2). we follow Meta-OoD to use single scale validation for OoD dataset, for fair comparison.
     """
+    
+    
     valid_anomaly(model=model, engine=engine, iteration=0, test_set=segment_me_anomaly,
                   data_name='segment_me_anomaly', my_wandb=vis_tool, logger=logger,
                   measure_way=config.measure_way)
@@ -93,8 +96,9 @@ def main(gpu, ngpus_per_node, config, args):
 
     valid_anomaly(model=model, engine=engine, iteration=0, test_set=road_anomaly, data_name='road_anomaly',
                   my_wandb=vis_tool, logger=logger, measure_way=config.measure_way)
-
+                  
     valid_epoch(model, engine, cityscapes_val, vis_tool, evaluator=evaluator, logger=logger)
+
 
     # please note: final_test_inlier function only produce the prediction and encode it with 33 categories;
     # you'll need to submit to https://www.cityscapes-dataset.com and receive the test results.

@@ -10,14 +10,14 @@ C.seed = 666
 
 """Root Directory Config"""
 C.repo_name = 'ood_seg'
-C.root_dir = os.path.realpath("")
+C.root_dir = os.path.realpath(r"C:\Users\admin\Documents\GitHub\RPL")
 
 """Data Dir and Weight Dir"""
-C.city_root_path = 'path/to/your/cityscapes'
+C.city_root_path = r"C:\Users\admin\Downloads\city_scape\city_scape"
 C.coco_root_path = 'path/to/your/coco'
-C.fishy_root_path = 'path/to/your/fishyscapes'
-C.segment_me_root_path = 'path/to/your/smiyc'
-C.road_anomaly_root_path = 'path/to/your/roadanomaly'
+C.fishy_root_path = r'C:\Users\admin\Desktop\fishyscapes'
+C.segment_me_root_path = r'C:\Users\admin\Desktop\segment_me'
+C.road_anomaly_root_path = r'C:\Users\admin\Desktop\road_anomaly'
 
 C.rpl_corocl_weight_path = os.path.join(C.root_dir, 'ckpts', 'exp', 'rev3.pth')
 C.pretrained_weight_path = os.path.join(C.root_dir, 'ckpts', 'pretrained_ckpts', 'cityscapes_best.pth')

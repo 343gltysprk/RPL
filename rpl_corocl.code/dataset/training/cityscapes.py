@@ -135,3 +135,4 @@ class Cityscapes(torch.utils.data.Dataset):
             print("'%s' is not a valid target type, choose from:\n" % target_type +
                   "['instance', 'semantic_id', 'semantic_train_id', 'color']")
             exit()
+            
